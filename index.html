@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnipVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">Snip<span>Vault</span></div>
+      <div class="logo-sub">// code snippets reference</div>
+    </div>
+
+    <div class="sidebar-search">
+      <input
+        type="text"
+        class="search-input"
+        id="searchInput"
+        placeholder="search snippets..."
+        autocomplete="off"
+      />
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+      <div class="nav-group">
+        <div class="nav-group-label">all</div>
+        <a class="nav-item active" data-lang="all">
+          <span class="nav-dot" style="background:#9090a8"></span>
+          All
+          <span class="nav-count" id="count-all">0</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">frontend</div>
+        <a class="nav-item" data-lang="html">
+          <span class="nav-dot" style="background:#f0914a"></span>
+          HTML
+          <span class="nav-count" id="count-html">0</span>
+        </a>
+        <a class="nav-item" data-lang="css">
+          <span class="nav-dot" style="background:#4d9de0"></span>
+          CSS
+          <span class="nav-count" id="count-css">0</span>
+        </a>
+        <a class="nav-item" data-lang="javascript">
+          <span class="nav-dot" style="background:#f5c842"></span>
+          JavaScript
+          <span class="nav-count" id="count-javascript">0</span>
+        </a>
+        <a class="nav-item" data-lang="vue">
+          <span class="nav-dot" style="background:#3ddc84"></span>
+          Vue.js
+          <span class="nav-count" id="count-vue">0</span>
+        </a>
+        <a class="nav-item" data-lang="typescript">
+          <span class="nav-dot" style="background:#3178c6"></span>
+          TypeScript
+          <span class="nav-count" id="count-typescript">0</span>
+        </a>
+        <a class="nav-item" data-lang="react">
+          <span class="nav-dot" style="background:#61dafb"></span>
+          React
+          <span class="nav-count" id="count-react">0</span>
+        </a>
+        <a class="nav-item" data-lang="angular">
+          <span class="nav-dot" style="background:#dd0031"></span>
+          Angular
+          <span class="nav-count" id="count-angular">0</span>
+        </a>
+        <a class="nav-item" data-lang="bootstrap">
+          <span class="nav-dot" style="background:#7952b3"></span>
+          Bootstrap
+          <span class="nav-count" id="count-bootstrap">0</span>
+        </a>
+        <a class="nav-item" data-lang="tailwind">
+          <span class="nav-dot" style="background:#38bdf8"></span>
+          Tailwind
+          <span class="nav-count" id="count-tailwind">0</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">backend</div>
+        <a class="nav-item" data-lang="nodejs">
+          <span class="nav-dot" style="background:#68a063"></span>
+          Node.js
+          <span class="nav-count" id="count-nodejs">0</span>
+        </a>
+        <a class="nav-item" data-lang="python">
+          <span class="nav-dot" style="background:#e85d8a"></span>
+          Python
+          <span class="nav-count" id="count-python">0</span>
+        </a>
+        <a class="nav-item" data-lang="php">
+          <span class="nav-dot" style="background:#777bb4"></span>
+          PHP
+          <span class="nav-count" id="count-php">0</span>
+        </a>
+        <a class="nav-item" data-lang="java">
+          <span class="nav-dot" style="background:#f89820"></span>
+          Java
+          <span class="nav-count" id="count-java">0</span>
+        </a>
+        <a class="nav-item" data-lang="csharp">
+          <span class="nav-dot" style="background:#9b4f96"></span>
+          C#
+          <span class="nav-count" id="count-csharp">0</span>
+        </a>
+        <a class="nav-item" data-lang="ruby">
+          <span class="nav-dot" style="background:#cc342d"></span>
+          Ruby
+          <span class="nav-count" id="count-ruby">0</span>
+        </a>
+        <a class="nav-item" data-lang="go">
+          <span class="nav-dot" style="background:#00add8"></span>
+          Go
+          <span class="nav-count" id="count-go">0</span>
+        </a>
+        <a class="nav-item" data-lang="django">
+          <span class="nav-dot" style="background:#0c4b33"></span>
+          Django
+          <span class="nav-count" id="count-django">0</span>
+        </a>
+        <a class="nav-item" data-lang="flask">
+          <span class="nav-dot" style="background:#b8b8c8"></span>
+          Flask
+          <span class="nav-count" id="count-flask">0</span>
+        </a>
+        <a class="nav-item" data-lang="express">
+          <span class="nav-dot" style="background:#8ec07c"></span>
+          Express
+          <span class="nav-count" id="count-express">0</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">database</div>
+        <a class="nav-item" data-lang="sql">
+          <span class="nav-dot" style="background:#ff6f61"></span>
+          SQL
+          <span class="nav-count" id="count-sql">0</span>
+        </a>
+        <a class="nav-item" data-lang="mysql">
+          <span class="nav-dot" style="background:#00758f"></span>
+          MySQL
+          <span class="nav-count" id="count-mysql">0</span>
+        </a>
+        <a class="nav-item" data-lang="postgresql">
+          <span class="nav-dot" style="background:#336791"></span>
+          PostgreSQL
+          <span class="nav-count" id="count-postgresql">0</span>
+        </a>
+        <a class="nav-item" data-lang="mongodb">
+          <span class="nav-dot" style="background:#47a248"></span>
+          MongoDB
+          <span class="nav-count" id="count-mongodb">0</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">mobile</div>
+        <a class="nav-item" data-lang="flutter">
+          <span class="nav-dot" style="background:#3dd8e0"></span>
+          Flutter
+          <span class="nav-count" id="count-flutter">0</span>
+        </a>
+        <a class="nav-item" data-lang="dart">
+          <span class="nav-dot" style="background:#0175c2"></span>
+          Dart
+          <span class="nav-count" id="count-dart">0</span>
+        </a>
+        <a class="nav-item" data-lang="kotlin">
+          <span class="nav-dot" style="background:#a97bff"></span>
+          Kotlin
+          <span class="nav-count" id="count-kotlin">0</span>
+        </a>
+        <a class="nav-item" data-lang="swift">
+          <span class="nav-dot" style="background:#ff6b35"></span>
+          Swift
+          <span class="nav-count" id="count-swift">0</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">systems & data</div>
+        <a class="nav-item" data-lang="c">
+          <span class="nav-dot" style="background:#a8b9cc"></span>
+          C
+          <span class="nav-count" id="count-c">0</span>
+        </a>
+        <a class="nav-item" data-lang="cpp">
+          <span class="nav-dot" style="background:#00599c"></span>
+          C++
+          <span class="nav-count" id="count-cpp">0</span>
+        </a>
+        <a class="nav-item" data-lang="rust">
+          <span class="nav-dot" style="background:#dea584"></span>
+          Rust
+          <span class="nav-count" id="count-rust">0</span>
+        </a>
+        <a class="nav-item" data-lang="r">
+          <span class="nav-dot" style="background:#276dc3"></span>
+          R
+          <span class="nav-count" id="count-r">0</span>
+        </a>
+        <a class="nav-item" data-lang="numpy">
+          <span class="nav-dot" style="background:#4dabcf"></span>
+          NumPy
+          <span class="nav-count" id="count-numpy">0</span>
+        </a>
+        <a class="nav-item" data-lang="pandas">
+          <span class="nav-dot" style="background:#e70488"></span>
+          Pandas
+          <span class="nav-count" id="count-pandas">0</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-add" id="openAddModal" data-open-add-modal>
+        <span>+</span> Add Snippet
+      </button>
+    </div>
+  </aside>
+
+  <!-- MOBILE MENU BUTTON -->
+  <button class="mobile-menu-btn" id="menuBtn">☰</button>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="language-nav">
+      <button class="strip-arrow" id="stripPrev" type="button" aria-label="Show previous languages">&lsaquo;</button>
+      <div class="language-strip" id="languageStrip" aria-label="Language shortcuts">
+        <button class="strip-item active" data-lang-shortcut="all">All</button>
+        <button class="strip-item" data-lang-shortcut="html">HTML</button>
+        <button class="strip-item" data-lang-shortcut="css">CSS</button>
+        <button class="strip-item" data-lang-shortcut="javascript">JavaScript</button>
+        <button class="strip-item" data-lang-shortcut="typescript">TypeScript</button>
+        <button class="strip-item" data-lang-shortcut="react">React</button>
+        <button class="strip-item" data-lang-shortcut="vue">Vue</button>
+        <button class="strip-item" data-lang-shortcut="angular">Angular</button>
+        <button class="strip-item" data-lang-shortcut="bootstrap">Bootstrap</button>
+        <button class="strip-item" data-lang-shortcut="tailwind">Tailwind</button>
+        <button class="strip-item" data-lang-shortcut="nodejs">Node.js</button>
+        <button class="strip-item" data-lang-shortcut="python">Python</button>
+        <button class="strip-item" data-lang-shortcut="java">Java</button>
+        <button class="strip-item" data-lang-shortcut="php">PHP</button>
+        <button class="strip-item" data-lang-shortcut="ruby">Ruby</button>
+        <button class="strip-item" data-lang-shortcut="go">Go</button>
+        <button class="strip-item" data-lang-shortcut="django">Django</button>
+        <button class="strip-item" data-lang-shortcut="flask">Flask</button>
+        <button class="strip-item" data-lang-shortcut="express">Express</button>
+        <button class="strip-item" data-lang-shortcut="sql">SQL</button>
+        <button class="strip-item" data-lang-shortcut="mysql">MySQL</button>
+        <button class="strip-item" data-lang-shortcut="postgresql">PostgreSQL</button>
+        <button class="strip-item" data-lang-shortcut="mongodb">MongoDB</button>
+        <button class="strip-item" data-lang-shortcut="flutter">Flutter</button>
+        <button class="strip-item" data-lang-shortcut="dart">Dart</button>
+        <button class="strip-item" data-lang-shortcut="kotlin">Kotlin</button>
+        <button class="strip-item" data-lang-shortcut="swift">Swift</button>
+        <button class="strip-item" data-lang-shortcut="c">C</button>
+        <button class="strip-item" data-lang-shortcut="cpp">C++</button>
+        <button class="strip-item" data-lang-shortcut="csharp">C#</button>
+        <button class="strip-item" data-lang-shortcut="rust">Rust</button>
+        <button class="strip-item" data-lang-shortcut="r">R</button>
+        <button class="strip-item" data-lang-shortcut="numpy">NumPy</button>
+        <button class="strip-item" data-lang-shortcut="pandas">Pandas</button>
+      </div>
+      <button class="strip-arrow" id="stripNext" type="button" aria-label="Show more languages">&rsaquo;</button>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-content">
+        <div>
+          <div class="hero-eyebrow">// your dev reference</div>
+          <h1 class="hero-title">SnipVault Reference<span>.</span></h1>
+          <p class="hero-desc">
+            Browse clean, copy-ready examples by language. Use the left menu like a tutorial index,
+            then open each snippet to read the note and copy the code.
+          </p>
+        </div>
+        <button class="hero-add-btn" type="button" data-open-add-modal>
+          <span>+</span> Add Snippet
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" id="totalCount">0</span>
+          <span class="stat-label">Snippets</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">33</span>
+          <span class="stat-label">Languages</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Copy-ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <div class="state-loading" id="stateLoading">
+        <div class="spinner"></div>
+        <p>Loading snippets...</p>
+      </div>
+
+      <div class="state-empty" id="stateEmpty" style="display:none">
+        <p class="state-empty-icon">📭</p>
+        <p class="state-empty-title">No snippets yet</p>
+        <p class="state-empty-sub">Click <strong>+ Add Snippet</strong> in the sidebar to get started.</p>
+      </div>
+
+      <div class="state-error" id="stateError" style="display:none">
+        <p class="state-empty-icon">⚠️</p>
+        <p class="state-empty-title">Could not load snippets</p>
+        <p class="state-empty-sub" id="errorMessage">Check your Supabase config.</p>
+        <button class="btn-retry" onclick="loadSnippets()">Retry</button>
+      </div>
+
+      <div class="snip-grid" id="snippetGrid" style="display:none"></div>
+
+    </div>
+  </main>
+
+  <!-- ADD SNIPPET MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="addModal">
+      <div class="modal-header">
+        <h2 class="modal-title">Add Snippet</h2>
+        <button class="modal-close" id="closeModal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Title <span class="required">*</span></label>
+          <input type="text" class="form-input" id="inputTitle" placeholder="e.g. Fetch with async/await" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Language <span class="required">*</span></label>
+            <select class="form-input" id="inputLanguage">
+              <option value="">Select language</option>
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="javascript">JavaScript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="react">React</option>
+              <option value="vue">Vue.js</option>
+              <option value="angular">Angular</option>
+              <option value="bootstrap">Bootstrap</option>
+              <option value="tailwind">Tailwind CSS</option>
+              <option value="nodejs">Node.js</option>
+              <option value="python">Python</option>
+              <option value="php">PHP</option>
+              <option value="java">Java</option>
+              <option value="csharp">C#</option>
+              <option value="ruby">Ruby</option>
+              <option value="go">Go</option>
+              <option value="django">Django</option>
+              <option value="flask">Flask</option>
+              <option value="express">Express</option>
+              <option value="sql">SQL</option>
+              <option value="mysql">MySQL</option>
+              <option value="postgresql">PostgreSQL</option>
+              <option value="mongodb">MongoDB</option>
+              <option value="flutter">Flutter</option>
+              <option value="dart">Dart</option>
+              <option value="kotlin">Kotlin</option>
+              <option value="swift">Swift</option>
+              <option value="c">C</option>
+              <option value="cpp">C++</option>
+              <option value="rust">Rust</option>
+              <option value="r">R</option>
+              <option value="numpy">NumPy</option>
+              <option value="pandas">Pandas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Badge</label>
+            <input type="text" class="form-input" id="inputBadge" placeholder="e.g. ES6+, Async" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Original Documentation URL</label>
+          <input
+            type="url"
+            class="form-input"
+            id="inputDocsUrl"
+            placeholder="https://developer.mozilla.org/..."
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Lesson Notes</label>
+          <textarea
+            class="form-textarea form-textarea-small"
+            id="inputDescription"
+            placeholder="Explain the snippet. Use blank lines for paragraphs, - for bullets, `tag` for inline code, and pipe rows for tables."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Table Section</label>
+          <textarea
+            class="form-textarea form-textarea-table"
+            id="inputTable"
+            placeholder="Optional table rows:
+| Start tag | Element content | End tag |
+| <h1> | My First Heading | </h1> |
+| <p> | My first paragraph. | </p> |"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Code <span class="required">*</span></label>
+          <textarea class="form-textarea" id="inputCode" placeholder="Paste your code here..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" id="cancelModal">Cancel</button>
+        <button class="btn-save" id="saveSnippet">Save Snippet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/database.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/apps.js"></script>
+
+</body>
+</html>
