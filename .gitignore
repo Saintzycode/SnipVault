@@ -1,6 +1,6 @@
 # API keys — never commit
 js/config.js
-js/config.example.js
+
 
 # OS junk
 .DS_Store
