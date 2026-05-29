@@ -226,6 +226,8 @@
     </div>
   </aside>
 
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
   <!-- MOBILE MENU BUTTON -->
   <button class="mobile-menu-btn" id="menuBtn">☰</button>
 
@@ -333,12 +335,13 @@
   <!-- ADD SNIPPET MODAL -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="addModal">
-      <div class="modal-header">
-        <h2 class="modal-title">Add Snippet</h2>
-        <button class="modal-close" id="closeModal">✕</button>
-      </div>
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Add Snippet</h2>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
 
       <div class="modal-body">
+        <input type="hidden" id="editingId" value="" />
         <div class="form-group">
           <label class="form-label">Title <span class="required">*</span></label>
           <input type="text" class="form-input" id="inputTitle" placeholder="e.g. Fetch with async/await" />

@@ -46,3 +46,14 @@ async function searchSnippets(query) {
   if (error) throw error
   return data
 }
+// Update a snippet by id
+async function updateSnippet(id, { title, language, badge, docs_url, description, code }) {
+  const { data, error } = await db
+    .from('snippets')
+    .update({ title, language, badge, docs_url, description, code })
+    .eq('id', id)
+    .select()
+
+  if (error) throw error
+  return data[0]
+}

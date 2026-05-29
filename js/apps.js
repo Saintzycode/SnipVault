@@ -41,18 +41,18 @@ const LANG_COLORS = {
 const SUPPORTED_LANGS = Object.keys(LANG_COLORS)
 
 // ── DOM refs ───────────────────────────────────────────
-const snippetGrid  = document.getElementById('snippetGrid')
-const stateLoading = document.getElementById('stateLoading')
-const stateEmpty   = document.getElementById('stateEmpty')
-const stateError   = document.getElementById('stateError')
-const errorMessage = document.getElementById('errorMessage')
-const totalCount   = document.getElementById('totalCount')
-const searchInput  = document.getElementById('searchInput')
-const modalOverlay = document.getElementById('modalOverlay')
-const toast        = document.getElementById('toast')
+const snippetGrid   = document.getElementById('snippetGrid')
+const stateLoading  = document.getElementById('stateLoading')
+const stateEmpty    = document.getElementById('stateEmpty')
+const stateError    = document.getElementById('stateError')
+const errorMessage  = document.getElementById('errorMessage')
+const totalCount    = document.getElementById('totalCount')
+const searchInput   = document.getElementById('searchInput')
+const modalOverlay  = document.getElementById('modalOverlay')
+const toast         = document.getElementById('toast')
 const languageStrip = document.getElementById('languageStrip')
-const stripPrev = document.getElementById('stripPrev')
-const stripNext = document.getElementById('stripNext')
+const stripPrev     = document.getElementById('stripPrev')
+const stripNext     = document.getElementById('stripNext')
 
 // ── Load & Render ──────────────────────────────────────
 async function loadSnippets(lang = currentLang) {
@@ -71,7 +71,7 @@ async function loadSnippets(lang = currentLang) {
 
 function renderSnippets(snippets) {
   snippetGrid.innerHTML = ''
-  snippets.forEach((s, i) => {
+  snippets.forEach((s) => {
     const color = LANG_COLORS[s.language] || '#9090a8'
     const card  = document.createElement('div')
     card.className = 'snip-card open'
@@ -85,7 +85,10 @@ function renderSnippets(snippets) {
             ${s.badge ? `<span class="snip-badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${escHtml(s.badge)}</span>` : ''}
             ${s.docs_url ? `<a class="docs-link" href="${escAttr(s.docs_url)}" target="_blank" rel="noopener noreferrer">Docs</a>` : ''}
           </div>
-          <button class="snip-delete" title="Delete snippet" data-id="${s.id}">&times;</button>
+          <div class="snip-actions">
+            <button class="snip-edit"   title="Edit snippet"   data-id="${s.id}">✏️</button>
+            <button class="snip-delete" title="Delete snippet" data-id="${s.id}">&times;</button>
+          </div>
         </div>
         ${s.description ? `<div class="snip-desc">${formatLessonText(s.description)}</div>` : ''}
       </div>
@@ -97,16 +100,16 @@ function renderSnippets(snippets) {
         </div>
       </div>`
 
-    // Toggle expand
-    card.querySelector('.snip-card-header').addEventListener('click', (e) => {
-      if (e.target.closest('.snip-delete')) return
-    })
-
     // Copy button
     card.querySelector('.copy-btn').addEventListener('click', () => {
       navigator.clipboard.writeText(s.code).then(() => {
         showToast('Copied to clipboard!', 'success')
       })
+    })
+
+    // Edit button
+    card.querySelector('.snip-edit').addEventListener('click', () => {
+      openEditModal(s)
     })
 
     // Delete button
@@ -173,11 +176,11 @@ function setActiveLanguage(lang) {
   document.querySelectorAll('.strip-item').forEach(n => n.classList.remove('active'))
 
   const sidebarItem = document.querySelector(`.nav-item[data-lang="${lang}"]`)
-  const stripItem = document.querySelector(`.strip-item[data-lang-shortcut="${lang}"]`)
+  const stripItem   = document.querySelector(`.strip-item[data-lang-shortcut="${lang}"]`)
 
   if (sidebarItem) sidebarItem.classList.add('active')
-  if (stripItem) stripItem.classList.add('active')
-  if (stripItem) stripItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+  if (stripItem)   stripItem.classList.add('active')
+  if (stripItem)   stripItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
 
   currentLang = lang
   searchInput.value = ''
@@ -202,23 +205,44 @@ searchInput.addEventListener('input', () => {
   }, 350)
 })
 
-// ── Add snippet modal ──────────────────────────────────
+// ── Modal ──────────────────────────────────────────────
 document.querySelectorAll('[data-open-add-modal]').forEach(button => {
   button.addEventListener('click', () => {
+    document.getElementById('editingId').value         = ''
+    document.getElementById('modalTitle').textContent  = 'Add Snippet'
+    document.getElementById('saveSnippet').textContent = 'Save Snippet'
     modalOverlay.classList.add('open')
     document.getElementById('inputTitle').focus()
   })
 })
 
+function openEditModal(snippet) {
+  document.getElementById('editingId').value          = snippet.id
+  document.getElementById('modalTitle').textContent   = 'Edit Snippet'
+  document.getElementById('saveSnippet').textContent  = 'Update Snippet'
+  document.getElementById('inputTitle').value         = snippet.title       || ''
+  document.getElementById('inputLanguage').value      = snippet.language    || ''
+  document.getElementById('inputBadge').value         = snippet.badge       || ''
+  document.getElementById('inputDocsUrl').value       = snippet.docs_url    || ''
+  document.getElementById('inputDescription').value   = snippet.description || ''
+  document.getElementById('inputTable').value         = ''
+  document.getElementById('inputCode').value          = snippet.code        || ''
+  modalOverlay.classList.add('open')
+  document.getElementById('inputTitle').focus()
+}
+
 function closeModal() {
   modalOverlay.classList.remove('open')
-  document.getElementById('inputTitle').value       = ''
-  document.getElementById('inputLanguage').value    = ''
-  document.getElementById('inputBadge').value       = ''
-  document.getElementById('inputDocsUrl').value     = ''
-  document.getElementById('inputDescription').value = ''
-  document.getElementById('inputTable').value       = ''
-  document.getElementById('inputCode').value        = ''
+  document.getElementById('editingId').value          = ''
+  document.getElementById('modalTitle').textContent   = 'Add Snippet'
+  document.getElementById('saveSnippet').textContent  = 'Save Snippet'
+  document.getElementById('inputTitle').value         = ''
+  document.getElementById('inputLanguage').value      = ''
+  document.getElementById('inputBadge').value         = ''
+  document.getElementById('inputDocsUrl').value       = ''
+  document.getElementById('inputDescription').value   = ''
+  document.getElementById('inputTable').value         = ''
+  document.getElementById('inputCode').value          = ''
 }
 
 document.getElementById('closeModal').addEventListener('click', closeModal)
@@ -229,13 +253,14 @@ modalOverlay.addEventListener('click', (e) => {
 })
 
 document.getElementById('saveSnippet').addEventListener('click', async () => {
-  const title    = document.getElementById('inputTitle').value.trim()
-  const language = document.getElementById('inputLanguage').value
-  const badge    = document.getElementById('inputBadge').value.trim()
-  const docsUrl  = document.getElementById('inputDocsUrl').value.trim()
-  const desc     = document.getElementById('inputDescription').value.trim()
-  const table    = document.getElementById('inputTable').value.trim()
-  const code     = document.getElementById('inputCode').value.trim()
+  const editingId = document.getElementById('editingId').value
+  const title     = document.getElementById('inputTitle').value.trim()
+  const language  = document.getElementById('inputLanguage').value
+  const badge     = document.getElementById('inputBadge').value.trim()
+  const docsUrl   = document.getElementById('inputDocsUrl').value.trim()
+  const desc      = document.getElementById('inputDescription').value.trim()
+  const table     = document.getElementById('inputTable').value.trim()
+  const code      = document.getElementById('inputCode').value.trim()
 
   if (!title || !language || !code) {
     showToast('Title, language, and code are required.', 'error')
@@ -248,25 +273,53 @@ document.getElementById('saveSnippet').addEventListener('click', async () => {
   }
 
   const btn = document.getElementById('saveSnippet')
-  btn.disabled = true
-  btn.textContent = 'Saving...'
+  btn.disabled    = true
+  btn.textContent = editingId ? 'Updating...' : 'Saving...'
+
+  const payload = {
+    title,
+    language,
+    badge,
+    docs_url: docsUrl || null,
+    description: combineLessonNotes(desc, table),
+    code
+  }
 
   try {
-    await addSnippet({ title, language, badge, docs_url: docsUrl, description: combineLessonNotes(desc, table), code })
-    showToast('Snippet saved!', 'success')
+    if (editingId) {
+      await updateSnippet(editingId, payload)
+      showToast('Snippet updated! ✅', 'success')
+    } else {
+      await addSnippet(payload)
+      showToast('Snippet saved! ✅', 'success')
+    }
     closeModal()
     loadSnippets(currentLang)
   } catch (err) {
-    showToast('Failed to save: ' + err.message, 'error')
+    showToast('Failed: ' + err.message, 'error')
   } finally {
-    btn.disabled = false
-    btn.textContent = 'Save Snippet'
+    btn.disabled    = false
+    btn.textContent = editingId ? 'Update Snippet' : 'Save Snippet'
   }
 })
 
 // ── Mobile menu ────────────────────────────────────────
-document.getElementById('menuBtn').addEventListener('click', () => {
-  document.getElementById('sidebar').classList.toggle('open')
+const sidebar  = document.getElementById('sidebar')
+const menuBtn  = document.getElementById('menuBtn')
+
+// Create backdrop element
+const backdrop = document.createElement('div')
+backdrop.className = 'sidebar-backdrop'
+document.body.appendChild(backdrop)
+
+menuBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('open')
+  backdrop.classList.toggle('show')
+})
+
+backdrop.addEventListener('click', () => {
+  sidebar.classList.remove('open')
+  backdrop.classList.remove('show')
 })
 
 // ── Counts ─────────────────────────────────────────────
@@ -486,7 +539,6 @@ function disableAdminMode() {
   showToast('Admin mode disabled 🔒', 'success')
 }
 
-// Secret shortcut: press Ctrl + Shift + A to prompt password
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'A') {
     if (isAdmin) {
