@@ -27,3 +27,6 @@ A personal code snippets reference site built with plain HTML/CSS/JS and Supabas
 - Frontend: Plain HTML, CSS, JavaScript
 - Backend: Supabase (PostgreSQL + REST API)
 - Font: Syne + Space Mono (Google Fonts)
+
+## Practice Branch
+Testing branch workflow.
